@@ -21,3 +21,20 @@ eureka:
   client:
     service-url:
       defaultZone : http://localhost:8761/eureka
+      
+resilience4j:
+  retry:
+    instances:
+      inventoryService:
+        maxAttempts: 3
+        waitDuration: 500ms
+        retryExceptions:
+          - java.io.IOException
+          - feign.RetryableException
+
+      paymentService:
+        maxAttempts: 2
+        waitDuration: 700ms
+        retryExceptions:
+          - java.io.IOException
+          - feign.RetryableException
